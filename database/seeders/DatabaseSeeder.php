@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ProveedoresSeeder::class);
         $this->call(ProductosSeeder::class);
         $this->call(ServiciosSeeder::class);
+        $this->call(ServiciosSeeder::class);
+        $this->call(TipoHabitacionesSeeder::class);
         $this->call(HabitacionesSeeder::class);
         $this->call(PisosSeeder::class);
         $this->call(MinibarInventarioSeeder::class);

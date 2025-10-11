@@ -38,6 +38,7 @@ class HabitacionesSeeder extends Seeder
                 'informacion' => $descripciones[$i - 1],
                 'precio_noche' => rand(90000, 150000),
                 'precio_dia' => rand(70000, 120000),
+                'tipo_habitacion_id' => rand(1, 4),
             ];
         }
 
@@ -49,6 +50,7 @@ class HabitacionesSeeder extends Seeder
                 'informacion' => $descripciones[$i - 1],
                 'precio_noche' => rand(90000, 150000),
                 'precio_dia' => rand(70000, 120000),
+                'tipo_habitacion_id' => rand(1, 4),
             ];
         }
 

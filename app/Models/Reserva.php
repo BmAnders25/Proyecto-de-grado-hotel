@@ -43,6 +43,15 @@ class Reserva extends Model
     return $this->belongsTo(Piso::class);
 }
 
+public function checkIn()
+{
+    return $this->hasOne(CheckIn::class);
+}
+
+public function checkOut()
+{
+    return $this->hasOne(CheckOut::class);
+}
 
     
 }

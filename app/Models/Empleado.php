@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\ProductoVendido;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -25,4 +24,15 @@ class Empleado extends Model
 {
     return $this->hasMany(ProductoVendido::class, 'vendido_por');
 }
+
+public function checkIns()
+{
+    return $this->hasMany(CheckIn::class);
+}
+
+public function checkOuts()
+{
+    return $this->hasMany(CheckOut::class);
+}
+
 }

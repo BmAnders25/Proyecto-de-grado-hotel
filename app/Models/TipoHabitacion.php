@@ -2,26 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class TipoHabitacion extends Model
 {
     use HasFactory;
-
-   
-    protected $table = 'tipos_habitacion';
-
-    // Campos que se pueden asignar masivamente
-    protected $fillable = [
-        'nombre',
-        'descripcion',
-        'precio_base',
-    ];
-
     
+    protected $table = 'tipo_habitaciones';
+
+    protected $fillable = [
+    'nombre',
+    'descripcion', 
+    'precio_base'];
+
     public function habitaciones()
     {
-        return $this->hasMany(Habitacion::class, 'tipo_habitacion_id');
+        return $this->hasMany(Habitacion::class);
     }
 }
+

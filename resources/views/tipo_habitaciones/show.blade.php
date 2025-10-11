@@ -9,16 +9,19 @@
 @section('content')
 <div class="row">
     <div class="col-md-6">
-        <x-adminlte-info-box title="Nombre del Tipo" text="{{ $tipo->nombre }}" icon="fas fa-bed" theme="primary"/>
+        <x-adminlte-info-box 
+            title="Nombre del Tipo" 
+            text="{{ $tipo->nombre }}" 
+            icon="fas fa-bed" 
+            theme="primary"/>
     </div>
 
     <div class="col-md-6">
         <x-adminlte-info-box 
-            title="ID" 
-            text="{{ $tipo->id }}" 
-            icon="fas fa-hashtag" 
-            theme="secondary" 
-        />
+            title="Precio Base" 
+            text="${{ number_format($tipo->precio_base, 0, ',', '.') }}" 
+            icon="fas fa-dollar-sign" 
+            theme="success"/>
     </div>
 </div>
 
@@ -28,18 +31,23 @@
             @if($tipo->descripcion)
                 <p>{{ $tipo->descripcion }}</p>
             @else
-                <p><em>Sin descripción.</em></p>
+                <p class="text-muted">No se ha proporcionado una descripción.</p>
             @endif
         </x-adminlte-card>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-12 text-right">
+        <a href="{{ route('tipo_habitaciones.index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Volver a la lista
+        </a>
     </div>
 </div>
 @stop
 
 @section('footer')
-    <footer>
-        <p>
-            <img src="{{ asset('vendor/adminlte/dist/img/fralgom-foot.png') }}" alt="Logo S.O.A.H">
-            © {{ date('Y') }} S.O.A.H Todos los derechos reservados.
-        </p>
+    <footer class="text-center mt-4">
+        <p><img src="{{ asset('vendor/adminlte/dist/img/logo.png') }}" width="4%" style="border-radius: 15px" alt="Logo S.O.AH"> © {{ date('Y') }} S.O.A.H.  Sistema De Organización y Administración Hotelera . Todos los derechos reservados.</p>
     </footer>
 @stop

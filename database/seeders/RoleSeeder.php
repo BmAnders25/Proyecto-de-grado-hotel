@@ -32,10 +32,10 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'ver-configuracion'])->syncRoles([$role1, $role2]);
         Permission::create(['name' => 'editar-configuracion'])->syncRoles([$role1, $role2]);
 
-        Permission::create(['name' => 'ver-entradas'])->syncRoles([$role1, $role2, $role3]);
-        Permission::create(['name' => 'crear-entradas'])->syncRoles([$role1, $role2, $role3]);
-        Permission::create(['name' => 'editar-entradas'])->syncRoles([$role1, $role2, $role3]);
-        Permission::create(['name' => 'borrar-entradas'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'ver-checkins'])->syncRoles([$role1, $role2, $role3]);
+        Permission::create(['name' => 'crear-checkins'])->syncRoles([$role1, $role2, $role3]);
+        Permission::create(['name' => 'editar-checkins'])->syncRoles([$role1, $role2, $role3]);
+        Permission::create(['name' => 'borrar-checkins'])->syncRoles([$role1, $role2]);
 
         Permission::create(['name' => 'ver-checkouts'])->syncRoles([$role1, $role2, $role3]);
         Permission::create(['name' => 'crear-checkouts'])->syncRoles([$role1, $role2, $role3]);

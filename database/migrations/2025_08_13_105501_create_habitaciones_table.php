@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('informacion')->nullable();
             $table->decimal('precio_noche', 10, 2)->default(0);
             $table->decimal('precio_dia', 10, 2)->nullable();
-            $table->unsignedBigInteger('tipo_habitacion_id');
-            $table->foreign('tipo_habitacion_id')->references('id')->on('tipos_habitacion')->onDelete('cascade');
 
+              //  Relación con tipo_habitaciones
+            $table->foreignId('tipo_habitacion_id')->nullable()->constrained('tipo_habitaciones')->onDelete('set null');
             $table->timestamps();
         });
     }

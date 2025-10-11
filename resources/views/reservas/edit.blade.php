@@ -132,6 +132,6 @@
 
 @section('footer')
 <footer class="text-center py-4">
-    <p><img src="{{ asset('vendor/adminlte/dist/img/fralgom-foot.png') }}" alt="Logo Fralgom" class="mb-2"> © {{ date('Y') }} S.O.AH. Todos los derechos reservados.</p>
+   <p><img src="{{ asset('vendor/adminlte/dist/img/logo.png') }}" width="4%" style="border-radius: 15px" alt="Logo S.O.AH"> © {{ date('Y') }} S.O.A.H.  Sistema De Organización y Administración Hotelera . Todos los derechos reservados.</p>
 </footer>
 @stop

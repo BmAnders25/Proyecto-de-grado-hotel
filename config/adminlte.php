@@ -346,10 +346,10 @@ return [
             'classes' => 'bg-secondary text-white',
         ],
         [
-            'text'  => 'Entradas',
-            'icon_color' => 'cyan',  // Para información neutral
-            'route' => 'construccion.index',
-            'can' => ['ver-gastos'],
+            'text'  => 'Checkin',
+            'icon_color' => 'cyan',  // Check In
+            'route' => 'checkins.index',
+            'can' => ['ver-checkins'],
             'icon' => 'fas fa-sign-in-alt',
             'classes' => 'bg-light text-dark',
         ],

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'MIILE')
+@section('title', 'S.O.A.H')
 
 @section('content_header')
-<h1 class="m-0 text-dark">Manejo de Ingresos e Inventario de Líquido y Envase</h1>
+<h1 class="m-0 text-dark">Sistema de Administracion Hotelera</h1>
 @stop
 
 @section('content')
@@ -17,7 +17,7 @@
         <div class="small-box bg-cyan">
             <div class="inner">
                 <h3>123</h3>
-                <p>Entradas</p>
+                <p>Check In</p>
             </div>
             <div class="icon">
                 <i class="fas fa-sign-in-alt"></i>
@@ -32,7 +32,7 @@
         <div class="small-box bg-yellow">
             <div class="inner">
                 <h3>321</h3>
-                <p>Salidas</p>
+                <p>Check Out</p>
             </div>
             <div class="icon">
                 <i class="fas fa-sign-out-alt"></i>
@@ -52,7 +52,7 @@
             <div class="icon">
                 <i class="fas fa-user-tag"></i>
             </div>
-            <a href="{{ route('clientes.index') }}" class="small-box-footer">
+            <a href="{{ route('habitaciones.index') }}" class="small-box-footer">
                 Más detalle <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -67,7 +67,7 @@
             <div class="icon">
                 <i class="fas fa-handshake"></i>
             </div>
-            <a href="{{ route('gastos.index') }}" class="small-box-footer">
+            <a href="{{ route('proveedores.index') }}" class="small-box-footer">
                 Más detalle <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>

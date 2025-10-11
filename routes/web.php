@@ -5,17 +5,16 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\PisoController;
-
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GastoController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\CheckInController;
 use App\Http\Controllers\ConsumoController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\PacienteController;
-use App\Http\Controllers\TipoHabitacionController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\VendedorController;
@@ -24,8 +23,9 @@ use App\Http\Controllers\HabitacionController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ConstruccionController;
 use App\Http\Controllers\ConfiguracioneController;
-use App\Http\Controllers\ProductoCompradoController;
+use App\Http\Controllers\TipoHabitacionController;
 use App\Http\Controllers\ProductoVendidoController;
+use App\Http\Controllers\ProductoCompradoController;
 use App\Http\Controllers\MinibarInventarioController;
 
 /*
@@ -56,7 +56,7 @@ Route::middleware('auth')->group(function () {
     ]);
 
     
-
+Route::resource('checkins', CheckInController::class);
 Route::resource('checkouts', CheckOutController::class);
 
 
@@ -75,9 +75,8 @@ Route::resource('checkouts', CheckOutController::class);
 ]);
 
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('tipo_habitaciones', TipoHabitacionController::class);
-});
+Route::resource('tipo_habitaciones', TipoHabitacionController::class)
+    ->parameters(['tipo_habitaciones' => 'tipo']);
 
 
 
@@ -99,23 +98,21 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('productos', ProductoController::class );
 
-     Route::resource('productoscomprados', ProductoCompradoController::class);
+    Route::resource('productoscomprados', ProductoCompradoController::class);
 
     Route::resource('productosvendidos', ProductoVendidoController::class);
-
-   
         
 
     // Consumops por habitación
-Route::get('/consumos', [ConsumoController::class, 'index'])
+    Route::get('/consumos', [ConsumoController::class, 'index'])
     ->name('consumos.index')
     ->middleware('permission:ver-consumos');
 
-Route::get('/consumos/crear', [ConsumoController::class, 'create'])
+    Route::get('/consumos/crear', [ConsumoController::class, 'create'])
     ->name('consumos.create')
     ->middleware('permission:crear-consumos');
 
-Route::post('/consumos', [ConsumoController::class, 'store'])
+    Route::post('/consumos', [ConsumoController::class, 'store'])
     ->name('consumos.store')
     ->middleware('permission:crear-consumos');
 

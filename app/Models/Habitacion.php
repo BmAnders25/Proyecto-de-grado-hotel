@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\ProductoVendido;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -14,11 +13,12 @@ class Habitacion extends Model
 
     protected $fillable = [
         'numero',
+        'tipo_habitacion_id',
         'estado',
         'informacion',
         'precio_noche',
         'precio_dia',
-        'tipo_habitacion_id',  
+        
     ];
 
     // Relación: una habitación puede tener muchos consumos
@@ -37,9 +37,19 @@ class Habitacion extends Model
         return $this->hasMany(Reserva::class);
     }
 
-    // Relación con TipoHabitacion
+    public function checkIns()
+    {
+    return $this->hasMany(CheckIn::class);
+    }   
+
+    public function checkOuts()
+    {
+    return $this->hasMany(CheckOut::class);
+    }
+
     public function tipo()
     {
         return $this->belongsTo(TipoHabitacion::class, 'tipo_habitacion_id');
     }
+
 }

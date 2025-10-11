@@ -18,13 +18,13 @@ class HabitacionController extends Controller
 
     public function index()
     {
-        $habitaciones = Habitacion::all();
+        $habitaciones = Habitacion::with('tipo')->get();
         return view('habitaciones.index', compact('habitaciones'));
     }
 
     public function create()
     {
-        $tipos = TipoHabitacion::all(); // Traer tipos para el select
+        $tipos = TipoHabitacion::all(); 
         return view('habitaciones.create', compact('tipos'));
     }
 
@@ -35,16 +35,16 @@ class HabitacionController extends Controller
             'estado' => 'required|in:disponible,ocupada,reservada',
             'precio_noche' => 'required|numeric|min:0',
             'precio_dia' => 'nullable|numeric|min:0',
-            'tipo_habitacion_id' => 'required|exists:tipos_habitacion,id', // Validar que exista el tipo
+            'tipo_habitacion_id' => 'nullable|exists:tipo_habitaciones,id',
         ]);
 
         Habitacion::create([
-            'numero' => $request->input('numero'),
-            'estado' => $request->input('estado'),
-            'informacion' => $request->input('informacion'),
-            'precio_noche' => $request->input('precio_noche'),
-            'precio_dia' => $request->input('precio_dia'),
-            'tipo_habitacion_id' => $request->input('tipo_habitacion_id'), // Guardar tipo
+            'numero' => $request->numero,
+            'estado' => $request->estado,
+            'informacion' => $request->informacion,
+            'precio_noche' => $request->precio_noche,
+            'precio_dia' => $request->precio_dia,
+            'tipo_habitacion_id' => $request->tipo_habitacion_id,
         ]);
 
         return redirect()->route('habitaciones.index')->with('success', 'Habitación creada con éxito.');
@@ -52,13 +52,13 @@ class HabitacionController extends Controller
 
     public function show($id)
     {
-        $habitacion = Habitacion::findOrFail($id);
+        $habitacion = Habitacion::with('tipo')->findOrFail($id);
         return view('habitaciones.show', compact('habitacion'));
     }
 
     public function edit(Habitacion $habitacion)
     {
-        $tipos = TipoHabitacion::all(); // Para el select en el edit
+        $tipos = TipoHabitacion::all();
         return view('habitaciones.edit', compact('habitacion', 'tipos'));
     }
 
@@ -69,16 +69,16 @@ class HabitacionController extends Controller
             'estado' => 'required|in:disponible,ocupada,reservada',
             'precio_noche' => 'required|numeric|min:0',
             'precio_dia' => 'nullable|numeric|min:0',
-            'tipo_habitacion_id' => 'required|exists:tipos_habitacion,id',
+            'tipo_habitacion_id' => 'nullable|exists:tipo_habitaciones,id',
         ]);
 
         $habitacion->update([
-            'numero' => $request->input('numero'),
-            'estado' => $request->input('estado'),
-            'informacion' => $request->input('informacion'),
-            'precio_noche' => $request->input('precio_noche'),
-            'precio_dia' => $request->input('precio_dia'),
-            'tipo_habitacion_id' => $request->input('tipo_habitacion_id'),
+            'numero' => $request->numero,
+            'estado' => $request->estado,
+            'informacion' => $request->informacion,
+            'precio_noche' => $request->precio_noche,
+            'precio_dia' => $request->precio_dia,
+            'tipo_habitacion_id' => $request->tipo_habitacion_id,
         ]);
 
         return redirect()->route('habitaciones.index')->with('success', 'Habitación actualizada con éxito.');

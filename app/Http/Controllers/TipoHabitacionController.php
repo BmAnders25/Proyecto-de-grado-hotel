@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class TipoHabitacionController extends Controller
 {
-    public function __construct()
+    function __construct()
     {
         $this->middleware('permission:ver-tipo-habitaciones|crear-tipo-habitaciones|editar-tipo-habitaciones|borrar-tipo-habitaciones', ['only' => ['index']]);
         $this->middleware('permission:crear-tipo-habitaciones', ['only' => ['create','store']]);
@@ -29,51 +29,43 @@ class TipoHabitacionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|max:100|unique:tipos_habitacion,nombre',
+            'nombre' => 'required|unique:tipo_habitaciones,nombre',
             'descripcion' => 'nullable|string',
             'precio_base' => 'required|numeric|min:0',
         ]);
 
         TipoHabitacion::create($request->all());
 
-        return redirect()->route('tipo_habitaciones.index')->with('success', 'Tipo de habitación creado correctamente.');
+        return redirect()->route('tipo_habitaciones.index')->with('success', 'Tipo de habitación creado con éxito.');
     }
 
-    public function show($id)
+    public function show(TipoHabitacion $tipo)
     {
-        $tipo = TipoHabitacion::findOrFail($id);
-    return view('tipo_habitaciones.show', compact('tipo'));
+        return view('tipo_habitaciones.show', compact('tipo'));
     }
 
-
-    public function edit($id)
+    public function edit(TipoHabitacion $tipo)
     {
-        $tipo = TipoHabitacion::findOrFail($id);
         return view('tipo_habitaciones.edit', compact('tipo'));
     }
 
-
-
-    public function update(Request $request, $id)
+    public function update(Request $request, TipoHabitacion $tipo)
     {
-        $tipo = TipoHabitacion::findOrFail($id);
-
         $request->validate([
-            'nombre' => 'required|string|max:100|unique:tipos_habitacion,nombre,' . $tipo->id,
+            'nombre' => 'required|unique:tipo_habitaciones,nombre,' . $tipo->id,
             'descripcion' => 'nullable|string',
             'precio_base' => 'required|numeric|min:0',
         ]);
 
         $tipo->update($request->all());
 
-        return redirect()->route('tipo_habitaciones.index')->with('success', 'Tipo de habitación actualizado correctamente.');
+        return redirect()->route('tipo_habitaciones.index')->with('success', 'Tipo de habitación actualizado con éxito.');
     }
 
-    public function destroy($id)
+    public function destroy(TipoHabitacion $tipo)
     {
-        $tipo = TipoHabitacion::findOrFail($id);
         $tipo->delete();
 
-        return redirect()->route('tipo_habitaciones.index')->with('success', 'Tipo de habitación eliminado correctamente.');
+        return redirect()->route('tipo_habitaciones.index')->with('success', 'Tipo de habitación eliminado con éxito.');
     }
 }
