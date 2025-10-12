@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class HabitacionesSeeder extends Seeder
 {
@@ -29,28 +30,34 @@ class HabitacionesSeeder extends Seeder
         ];
 
         $habitaciones = [];
+        $estados = ['disponible', 'ocupada', 'reservada'];
 
-        // Serie 200 (201 a 216)
+        // Crear habitaciones serie 200
         for ($i = 1; $i <= 16; $i++) {
             $habitaciones[] = [
                 'numero' => '2' . str_pad($i, 2, '0', STR_PAD_LEFT),
-                'estado' => 'disponible',
+                'estado' => $estados[array_rand($estados)], // ← Estado aleatorio
                 'informacion' => $descripciones[$i - 1],
                 'precio_noche' => rand(90000, 150000),
                 'precio_dia' => rand(70000, 120000),
                 'tipo_habitacion_id' => rand(1, 4),
+                // Generamos fechas de actualización aleatorias en distintos meses del año
+                'updated_at' => Carbon::now()->subMonths(rand(0, 11))->setDay(rand(1, 28)),
+                'created_at' => Carbon::now()->subMonths(rand(0, 11))->setDay(rand(1, 28)),
             ];
         }
 
-        // Serie 300 (301 a 316)
+        // Crear habitaciones serie 300
         for ($i = 1; $i <= 16; $i++) {
             $habitaciones[] = [
                 'numero' => '3' . str_pad($i, 2, '0', STR_PAD_LEFT),
-                'estado' => 'disponible',
+                'estado' => $estados[array_rand($estados)],
                 'informacion' => $descripciones[$i - 1],
                 'precio_noche' => rand(90000, 150000),
                 'precio_dia' => rand(70000, 120000),
                 'tipo_habitacion_id' => rand(1, 4),
+                'updated_at' => Carbon::now()->subMonths(rand(0, 11))->setDay(rand(1, 28)),
+                'created_at' => Carbon::now()->subMonths(rand(0, 11))->setDay(rand(1, 28)),
             ];
         }
 

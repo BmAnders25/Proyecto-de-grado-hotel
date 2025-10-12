@@ -345,6 +345,13 @@ return [
             'header' => 'Movimientos',
             'classes' => 'bg-secondary text-white',
         ],
+
+        [
+        'text' => 'Dashboard',
+        'url'  => 'dashboard',
+        'icon' => 'fas fa-chart-line',
+        ],
+
         [
             'text'  => 'Checkin',
             'icon_color' => 'cyan',  // Check In

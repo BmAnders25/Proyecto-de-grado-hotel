@@ -27,7 +27,9 @@ class DatabaseSeeder extends Seeder
         $this->call(HabitacionesSeeder::class);
         $this->call(PisosSeeder::class);
         $this->call(MinibarInventarioSeeder::class);
-    
+        $this->call(ReservasSeeder::class);
+        $this->call(CheckInsSeeder::class);
+        $this->call(CheckOutsSeeder::class);
         
         \App\Models\User::factory()->create([
             'name'=>'Breekman Anderson Martinez Perez',

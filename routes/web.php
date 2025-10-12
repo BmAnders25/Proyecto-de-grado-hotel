@@ -27,6 +27,7 @@ use App\Http\Controllers\TipoHabitacionController;
 use App\Http\Controllers\ProductoVendidoController;
 use App\Http\Controllers\ProductoCompradoController;
 use App\Http\Controllers\MinibarInventarioController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('configuracion', ConfiguracioneController::class)->only([
         'index', 'edit', 'update'
     ]);
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
 
     
 Route::resource('checkins', CheckInController::class);
