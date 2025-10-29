@@ -9,7 +9,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GastoController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\CheckInController;
-use App\Http\Controllers\ConsumoController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\ClientesController;
@@ -26,8 +25,10 @@ use App\Http\Controllers\ConfiguracioneController;
 use App\Http\Controllers\TipoHabitacionController;
 use App\Http\Controllers\ProductoVendidoController;
 use App\Http\Controllers\ProductoCompradoController;
-use App\Http\Controllers\MinibarInventarioController;
+use App\Http\Controllers\MinibarHabitacionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FacturaController;
+use App\Http\Controllers\DetalleFacturaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,17 +62,16 @@ Route::middleware('auth')->group(function () {
     ->name('dashboard');
 
     
-Route::resource('checkins', CheckInController::class);
-Route::resource('checkouts', CheckOutController::class);
+    Route::resource('checkins', CheckInController::class);
+    Route::resource('checkouts', CheckOutController::class);
 
+    Route::get('minibar/create/{habitacion}', [MinibarHabitacionController::class, 'create'])->name('minibar.create');
+    Route::delete('minibar/{habitacion}/{producto}', [MinibarHabitacionController::class, 'destroy'])
+    ->name('minibar.habitacion.destroy');
 
-    Route::resource('minibarinventario', MinibarInventarioController::class)->only([
-    'index',     
-    'show',      
-    'edit',     
-    'update',    
-    'destroy'    
-]);
+    Route::resource('minibar', MinibarHabitacionController::class)->except(['create']);
+    
+
 
     Route::resource('pisos', PisoController::class);
 
@@ -80,11 +80,26 @@ Route::resource('checkouts', CheckOutController::class);
 ]);
 
 
+
 Route::resource('tipo_habitaciones', TipoHabitacionController::class)
     ->parameters(['tipo_habitaciones' => 'tipo']);
 
 
 
+
+Route::middleware(['auth'])->group(function () {
+
+
+// Registro RESTful estándar (incluye destroy -> DELETE facturas/{factura})
+Route::resource('facturas', FacturaController::class);
+
+// Ruta para descargar PDF (GET) usando Route Model Binding
+Route::get('facturas/{factura}/pdf', [FacturaController::class, 'descargarPDF'])
+    ->name('facturas.pdf');
+
+    
+
+});
 
 
     Route::resource('gastos', GastoController::class);
@@ -108,18 +123,6 @@ Route::resource('tipo_habitaciones', TipoHabitacionController::class)
     Route::resource('productosvendidos', ProductoVendidoController::class);
         
 
-    // Consumops por habitación
-    Route::get('/consumos', [ConsumoController::class, 'index'])
-    ->name('consumos.index')
-    ->middleware('permission:ver-consumos');
-
-    Route::get('/consumos/crear', [ConsumoController::class, 'create'])
-    ->name('consumos.create')
-    ->middleware('permission:crear-consumos');
-
-    Route::post('/consumos', [ConsumoController::class, 'store'])
-    ->name('consumos.store')
-    ->middleware('permission:crear-consumos');
 
     Route::resource('servicios', ServicioController::class );
 

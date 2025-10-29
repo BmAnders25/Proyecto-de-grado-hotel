@@ -3,95 +3,109 @@
 @section('title', 'Productos Vendidos')
 
 @section('content_header')
-<h1 class="m-0 text-dark">Historial de Productos Vendidos</h1>
+    <h1 class="m-0 text-dark">Productos Vendidos por Habitación</h1>
 @stop
 
 @section('content')
-<x-adminlte-card>
+
+<div class="d-flex justify-content-end mb-3">
     @can('crear-productos-vendidos')
-    <a class="btn btn-primary mr-2" href="{{ route('productosvendidos.create') }}" role="button"><i class="fa fa-plus"></i> Registrar Venta</a>
+    <a href="{{ route('productosvendidos.create') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Registrar Venta
+    </a>
     @endcan
+</div>
 
-    <div class="card-body">
+<div id="ventasAccordion">
+    @php
+        $bgClasses = ['bg-light', 'bg-white', 'bg-gradient-light'];
+        $ventasPorHabitacion = $ventas->groupBy('habitacion_id');
+    @endphp
+
+    @forelse($ventasPorHabitacion as $habitacionId => $ventasHabitacion)
         @php
-        $config['language'] = ['url' => asset('vendor/datatables/es-CO.json')];
+            $habitacionNumero = $ventasHabitacion->first()->habitacion->numero ?? 'N/A';
+            $clienteNombre    = $ventasHabitacion->first()->cliente->nombre ?? 'Cliente eliminado';
+            $totalHabitacion  = $ventasHabitacion->sum('total');
+            $bgClass = $bgClasses[$loop->index % count($bgClasses)];
         @endphp
-        <x-adminlte-datatable id="table1" :heads="['Id', 'Producto','Cliente','Empleado', 'Habitación','Unidades','Precio','Total','Fecha','Acciones']" head-theme="dark"
-            :config=$config striped hoverable with-buttons>
-            @foreach ($ventas as $venta)
-            <tr>
-                <td>{{ $venta->id }}</td>
-                <td>{{ $venta->producto->nombre ?? 'Producto eliminado' }}</td>
-                <td>{{ $venta->cliente->nombre ?? 'Cliente eliminado' }}</td>
-                <td>{{ $venta->empleado->nombre ?? 'No Registrado' }}</td>
-                <td>{{ $venta->habitacion->numero ?? 'No asignada' }}</td> 
-                <td>{{ $venta->unidades }}</td>
-                <td>${{ number_format($venta->precio, 2) }}</td>
-                <td>${{ number_format($venta->total, 2) }}</td>
-                <td>{{ $venta->fecha_venta->format('d/m/Y H:i') }}</td>
-                <td>
-                    <a class="btn btn-info" href="{{ route('productosvendidos.show', $venta->id) }}" role="button">
-                        <i class="far fa-eye fa-fw"></i></a>
 
-                    @can('editar-productos-vendidos')
-                    <a class="btn btn-success" href="{{ route('productosvendidos.edit', $venta->id) }}" role="button">
-                        <i class="fas fa-pencil-alt fa-fw"></i></a>
-                    @endcan
-                    
-                    @can('borrar-productos-vendidos')
-                    <form method="POST" action="{{ route('productosvendidos.destroy', $venta->id) }}" style="display: inline;" class="delete-form">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" class="btn btn-warning delete-button">
-                            <i class="far fa-trash-alt fa-fw"></i>
-                        </button>
-                    </form>
-                    @endcan
-                </td>
-            </tr>
-            @endforeach
-        </x-adminlte-datatable>
-    </div>
-</x-adminlte-card>
+        <div class="card mb-2 shadow-sm rounded-lg {{ $bgClass }}">
+            <div class="card-header py-2" id="heading{{ $habitacionId }}">
+                <h5 class="mb-0 d-flex justify-content-between align-items-center">
+                    <button 
+                        class="btn btn-link text-left flex-grow-1 font-weight-bold text-dark collapsed"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#collapse{{ $habitacionId }}"
+                        aria-expanded="false"
+                        aria-controls="collapse{{ $habitacionId }}"
+                        style="text-decoration: none;"
+                    >
+                        Habitación {{ $habitacionNumero }} 
+                        <small class="text-muted">- Cliente: {{ $clienteNombre }}</small>
+                        <span class="ml-2 text-primary" style="font-size: 1.1rem;">
+                            ${{ number_format($totalHabitacion, 0, ',', '.') }}
+                        </span>
+                    </button>
+                    <i class="fas fa-chevron-down text-muted ml-2 toggle-icon"></i>
+                </h5>
+            </div>
+
+            <div 
+                id="collapse{{ $habitacionId }}" 
+                class="collapse" 
+                aria-labelledby="heading{{ $habitacionId }}"
+                data-parent="#ventasAccordion"
+            >
+                <div class="card-body py-2">
+                    @foreach($ventasHabitacion as $venta)
+                        <div class="d-flex justify-content-between border-bottom py-2">
+                            <div>
+                                <strong>{{ $venta->producto->nombre }}</strong>
+                                <span class="text-muted">
+                                    x{{ $venta->unidades }} 
+                                    ({{ number_format($venta->precio, 0, ',', '.') }} precio unitario)
+                                </span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-dark">
+                                    ${{ number_format($venta->total, 0, ',', '.') }}
+                                </span><br>
+                                <small class="text-muted">
+                                    {{ $venta->fecha_venta->format('d/m/Y H:i') }}
+                                </small>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+    @empty
+        <p class="text-center text-muted">No hay productos vendidos registrados todavía.</p>
+    @endforelse
+</div>
+
 @stop
 
-@section('footer')
-<footer>
-    <p><img src="{{ asset('vendor/adminlte/dist/img/logo.png') }}" width="4%" style="border-radius: 15px" alt="Logo S.O.AH"> © {{ date('Y') }} S.O.A.H.  Sistema De Organización y Administración Hotelera . Todos los derechos reservados.</p>
-</footer>
-@stop
-
-@section('js')
-@if ($message = Session::get('success'))
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-Swal.fire({
-    title: "Operación Exitosa!",
-    text: "{{ $message }}",
-    timer: 2000,
-    icon: "success"
-});
-</script>
-@endif
-
-<script>
-var deleteButtons = document.querySelectorAll('.delete-button');
-deleteButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
-        var form = this.parentElement;
+    @if(session('success'))
         Swal.fire({
-            title: "¿Estás seguro de eliminar esta venta?",
-            text: "¡No se podrá recuperar la información!",
-            icon: "error",
-            showCancelButton: true,
+            icon: 'success',
+            title: '¡Hecho!',
+            text: "{{ session('success') }}",
             confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: "¡Sí, Eliminar!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-            }
-        })
+            confirmButtonText: 'Ok'
+        });
+    @endif
+
+    $('#ventasAccordion').on('show.bs.collapse', function(e) {
+        $(e.target).prev('.card-header').find('.toggle-icon').addClass('fa-rotate-180');
+    }).on('hide.bs.collapse', function(e) {
+        $(e.target).prev('.card-header').find('.toggle-icon').removeClass('fa-rotate-180');
     });
-});
 </script>
-@stop
+@endpush

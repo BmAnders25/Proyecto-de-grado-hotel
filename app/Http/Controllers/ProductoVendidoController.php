@@ -30,7 +30,7 @@ class ProductoVendidoController extends Controller
         $productos = Producto::where('estado', 'Activo')->get(); // Solo productos activos
         $clientes = Cliente::all();
         $empleados = Empleado::all();
-        $habitaciones = Habitacion::all(); // Obtener todas las habitaciones disponibles
+        $habitaciones = Habitacion::where('estado', 'Ocupada')->get();
 
         return view('productosvendidos.create', compact('productos', 'clientes', 'empleados', 'habitaciones'));
     }
@@ -75,61 +75,6 @@ class ProductoVendidoController extends Controller
             ->with('success', 'Venta registrada correctamente.');
     }
 
-    public function show($id)
-    {
-        $venta = ProductoVendido::with(['producto','cliente','empleado'])->findOrFail($id);
-        return view('productosvendidos.show', compact('venta'));
-    }
+    
 
-    public function edit($id)
-    {
-        $venta = ProductoVendido::findOrFail($id);
-        $productos = Producto::where('estado', 'Activo')->get(); // Solo productos activos
-        $clientes = Cliente::all();
-        $empleados = Empleado::all();
-        $habitaciones = Habitacion::all(); // Obtener habitaciones disponibles
-
-        return view('productosvendidos.edit', compact('venta', 'productos', 'clientes', 'empleados', 'habitaciones'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'producto_id' => 'required|exists:productos,id',
-            'cliente_id' => 'required|exists:clientes,id',
-            'unidades' => 'required|integer|min:1',
-            'vendido_por' => 'nullable|exists:empleados,id',
-            'habitacion_id' => 'required|exists:habitaciones,id',
-        ]);
-
-        $venta = ProductoVendido::findOrFail($id);
-
-        $producto = Producto::findOrFail($request->producto_id);
-        $precio = $producto->precio;
-        $total = $request->unidades * $precio;
-
-        // Actualizar la venta
-        $venta->update([
-            'producto_id' => $request->producto_id,
-            'cliente_id' => $request->cliente_id,
-            'unidades' => $request->unidades,
-            'precio' => $precio, // Precio del producto
-            'total' => $total,
-            'fecha_venta' => $request->fecha_venta ?? now(),
-            'vendido_por' => $request->vendido_por,
-            'habitacion_id' => $request->habitacion_id,
-        ]);
-
-        return redirect()->route('productosvendidos.index')
-            ->with('success', 'Venta actualizada correctamente.');
-    }
-
-    public function destroy($id)
-    {
-        $venta = ProductoVendido::findOrFail($id);
-        $venta->delete();
-
-        return redirect()->route('productosvendidos.index')
-            ->with('success', 'Venta eliminada correctamente.');
-    }
 }

@@ -21,8 +21,8 @@ class RoleSeeder extends Seeder
 
         // Crear roles
         $role1 = Role::create(['name' => 'Administrador']);
-        $role2 = Role::create(['name' => 'Supervisor']);
-        $role3 = Role::create(['name' => 'Cajero']);
+        $role2 = Role::create(['name' => 'Recepcionista']);
+        $role3 = Role::create(['name' => 'Mantenimiento']);
 
         // Crear y asignar permisos
         Permission::create(['name' => 'home'])->syncRoles([$role1, $role2, $role3]);
@@ -100,6 +100,14 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'crear-productos-vendidos'])->syncRoles([$role1, $role2]);
         Permission::create(['name' => 'editar-productos-vendidos'])->syncRoles([$role1, $role2]);
         Permission::create(['name' => 'borrar-productos-vendidos'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'ver-facturas'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'crear-facturas'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'editar-facturas'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'borrar-facturas'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'ver-detalle-facturas'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'borrar-detalle-facturas'])->syncRoles([$role1]);
 
         Permission::create(['name' => 'ver-pacientes'])->syncRoles([$role1, $role2]);
         Permission::create(['name' => 'crear-pacientes'])->syncRoles([$role1, $role2]);

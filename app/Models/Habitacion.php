@@ -32,6 +32,13 @@ class Habitacion extends Model
         return $this->belongsTo(Piso::class);
     }
 
+    public function minibarHabitacion()
+    {
+    return $this->hasMany(MinibarHabitacion::class, 'habitacion_id');
+    }
+
+
+
     public function reservas()
     {
         return $this->hasMany(Reserva::class);
@@ -50,6 +57,18 @@ class Habitacion extends Model
     public function tipo()
     {
         return $this->belongsTo(TipoHabitacion::class, 'tipo_habitacion_id');
+    }
+
+    public function facturas()
+    {
+    return $this->hasMany(Factura::class);
+    }
+
+    public function productos()
+    {
+        return $this->belongsToMany(Producto::class, 'minibar_habitacion')
+                    ->withPivot('cantidad_inicial', 'cantidad_actual')
+                    ->withTimestamps();
     }
 
 }

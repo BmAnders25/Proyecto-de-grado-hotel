@@ -323,386 +323,260 @@ return [
     |
     */
 
-    'menu' => [
-        // Navbar items:
-        [
-            'type'         => 'navbar-search',
-            'text'         => 'Buscar',
-            'topnav_right' => true,
-        ],
-        [
-            'type'         => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
-
-        // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'Buscar',
-        ],
-
-        [
-            'header' => 'Movimientos',
-            'classes' => 'bg-secondary text-white',
-        ],
-
-        [
-        'text' => 'Dashboard',
-        'url'  => 'dashboard',
-        'icon' => 'fas fa-chart-line',
-        ],
-
-        [
-            'text'  => 'Checkin',
-            'icon_color' => 'cyan',  // Check In
-            'route' => 'checkins.index',
-            'can' => ['ver-checkins'],
-            'icon' => 'fas fa-sign-in-alt',
-            'classes' => 'bg-light text-dark',
-        ],
-        [
-            'text' => 'CheckOut',
-            'icon_color' => 'yellow',  // Exámenes complementarios
-            'route' => 'checkouts.index',
-            'can' => ['ver-checkouts'],
-            'icon' => 'fas fa-sign-out-alt',
-            'classes' => 'bg-light text-dark',
-        ],
-        [
-            'text' => 'Pagos',
-            'icon_color' => 'red',
-            'route' => 'construccion.index',
-            'can' => ['ver-gastos'],
-            'icon' => 'fas fa-money-bill-wave',
-            'classes' => 'bg-light text-dark',
-        ],
-        [
-            'header' => 'Reservas',
-            'classes' => 'bg-secondary text-white',
-        ],
-        [
-            'text' => 'Habitaciones',
-            'icon_color' => 'cyan',  // Laboratorio como área crítica, destacado
-            'route'  => 'habitaciones.index',
-            'can'  => ['ver-habitaciones'],
-            'icon' => 'fas fa-bed',
-            'classes' => 'bg-light text-dark',
-        ],
-
-         [
-            'text' => 'Tipo de Habitaciones',
-            'icon_color' => 'orange',  // Laboratorio como área crítica, destacado
-            'route'  => 'tipo_habitaciones.index',
-            'can'  => ['ver-tipo-habitaciones'],
-            'icon' => 'fas fa-tags',
-            'classes' => 'bg-light text-dark',
-        ],
-        [
-            'text' => 'Reservas',
-            'icon_color' => 'yellow',  // Laboratorio como área crítica, destacado
-            'route'  => 'reservas.index',
-            'can'  => ['ver-reservas'],
-            'icon' => 'fas fa-calendar-alt',
-            'classes' => 'bg-light text-dark',
-        ],
-        [
-            'text' => 'Cuadre Inventario',
-            'icon_color' => 'red',  // Laboratorio como área crítica, destacado
-            'route'  => 'construccion.index',
-            'can'  => ['ver-gastos'],
-            'icon' => 'fas fa-cogs',
-            'classes' => 'bg-light text-dark',
-        ],
-        [
-            'text' => 'Activar Cuadre',
-            'icon_color' => 'green',  // Laboratorio como área crítica, destacado
-            'route'  => 'construccion.index',
-            'can'  => ['ver-gastos'],
-            'icon' => 'fas fa-toggle-on',
-            'classes' => 'bg-light text-dark',
-        ],
-        [
-            'text' => 'Informes',
-            'icon' => 'fas fa-chart-line',
-            'classes' => 'bg-secondary text-white',
-            'submenu' => [
-                [
-                    'text' => 'Pisos',
-                    'icon_color' => 'cyan',  // Inventario de los productos
-                    'route' => 'pisos.index',
-                    'can' => ['ver-pisos'],
-                    'icon' => 'fas fa-building',
-                    'classes' => 'bg-light text-dark',
-                ],
-                [
-                    'text' => 'Kardex',
-                    'icon_color' => 'yellow',  // Cargos de los pacientes
-                    'route' => 'construccion.index',
-                    'can' => ['ver-gastos'],
-                    'icon' => 'fas fa-stream',
-                    'classes' => 'bg-light text-dark',
-                ],
-                [
-                    'text' => 'Cuentas por Pagar',
-                    'icon_color' => 'red',  // Cargos de los pacientes
-                    'route' => 'construccion.index',
-                    'can' => ['ver-gastos'],
-                    'icon' => 'fas fa-file-invoice-dollar',
-                    'classes' => 'bg-light text-dark',
-                ],
-                [
-                    'text' => 'Cuentas por Cobrar',
-                    'icon_color' => 'green',  // Cargos de los pacientes
-                    'route' => 'construccion.index',
-                    'can' => ['ver-gastos'],
-                    'icon' => 'fas fa-wallet',
-                    'classes' => 'bg-light text-dark',
-                ],
-                [
-                    'text' => 'Estadístico',
-                    'icon_color' => 'gray',  // Cargos de los pacientes
-                    'route' => 'construccion.index',
-                    'can' => ['ver-gastos'],
-                    'icon' => 'fas fa-chart-bar',
-                    'classes' => 'bg-light text-dark',
-                ],
-                [
-                    'text' => 'Cuadres',
-                    'icon_color' => 'orange',  // Cargos de los pacientes
-                    'route' => 'construccion.index',
-                    'can' => ['ver-gastos'],
-                    'icon' => 'fas fa-balance-scale',
-                    'classes' => 'bg-light text-dark',
-                ],
-            ],
-        ],
-        [
-            'text' => 'Parámetros',
-            'icon' => 'fas fa-cogs',
-            'classes' => 'bg-secondary text-white',
-            'submenu' => [
-                [
-                    'text' => 'Terceros',
-                    'icon' => 'fas fa-users',
-                    'classes' => 'bg-cyan text-white',
-                    'submenu' => [
-                        [
-                            'text' => 'Proveedores',
-                            'icon_color' => 'cyan',
-                            'route' => 'proveedores.index',
-                            'can' => ['ver-proveedores'],
-                            'icon' => 'fas fa-handshake',
-                            'classes' => 'bg-light text-dark',
-                        ],
-                        [
-                            'text' => 'Clientes',
-                            'icon_color' => 'yellow',
-                            'route' => 'clientes.index',
-                            'can' => ['ver-clientes'],
-                            'icon' => 'fas fa-user-tag',
-                            'classes' => 'bg-light text-dark',
-                        ],
-                        [
-                            'text' => 'Vendedores',
-                            'icon_color' => 'red',
-                            'route' => 'vendedores.index',
-                            'can' => ['ver-vendedores'],
-                            'icon' => 'fas fa-user-tie',
-                            'classes' => 'bg-light text-dark',
-                        ],
-                        [
-                            'text' => 'Empleados',
-                            'icon_color' => 'green',
-                            'route' => 'empleados.index',
-                            'can' => ['ver-empleados'],
-                            'icon' => 'fas fa-users-cog',
-                            'classes' => 'bg-light text-dark',
-                        ],
-
-                        [
-                            'text' => 'Pacientes',
-                            'icon_color' => 'purple',
-                            'route' => 'pacientes.index',
-                            'can' => ['ver-pacientes'],
-                            'icon' => 'fas fa-user-md',
-                            'classes' => 'bg-light text-dark',
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'Mini Bar',
-                    'icon' => 'fas fa-boxes',
-                    'classes' => 'bg-cyan text-white',
-                    'submenu' => [
-
-                        [
-                            'text' => 'Inventario',
-                            'icon_color' => 'cyan',  // Administración de Productos Vendidos
-                            'route' => 'minibarinventario.index',
-                            'can' => ['ver-minibar-inventario'],
-                            'icon' => 'fas fa-archive',
-                            'classes' => 'bg-light text-dark',
-                        ],
-                        [
-                            'text' => 'Productos',
-                            'icon_color' => 'cyan',  // Cargos de los pacientes
-                            'route' => 'productos.index',
-                            'can' => ['ver-productos'],
-                            'icon' => 'fas fa-boxes',
-                            'classes' => 'bg-light text-dark',
-                        ],
-
-                        [
-                            'text' => 'ProductosComprados',
-                            'icon_color' => 'green',  // Administración de Productos Vendidos
-                            'route' => 'productoscomprados.index',
-                            'can' => ['ver-productos-comprados'],
-                            'icon' => 'fas fa-shopping-bag',
-                            'classes' => 'bg-light text-dark',
-                        ],
-
-                        [
-                            'text' => 'ProductosVendidos',
-                            'icon_color' => 'cyan',  // Administración de Productos Vendidos
-                            'route' => 'productosvendidos.index',
-                            'can' => ['ver-productos-vendidos'],
-                            'icon' => 'fas fa-shopping-cart',
-                            'classes' => 'bg-light text-dark',
-                        ],
-
-                        [
-                        'text' => 'Consumos',
-                        'icon_color' => 'red',  // Módulo de consumos por habitación
-                        'route' => 'consumos.index',  // ruta del controlador de consumos
-                        'can' => ['ver-consumos'],     // permiso para ver consumos
-                        'icon' => 'fas fa-utensils',   // ícono más relacionado con consumos
-                        'classes' => 'bg-light text-dark',
-                        ],
-
-                        [
-                            'text' => 'Servicios',
-                            'icon_color' => 'yellow',  // Cargos de los pacientes
-                            'route' => 'servicios.index',
-                            'can' => ['ver-servicios'],
-                            'icon' => 'fas fa-concierge-bell',
-                            'classes' => 'bg-light text-dark',
-                        ],
-                        [
-                            'text' => 'Categorias',
-                            'icon_color' => 'red',  // Información de profesionales
-                            'route' => 'construccion.index',
-                            'can' => ['ver-gastos'],
-                            'icon' => 'fas fa-tags',
-                            'classes' => 'bg-light text-dark',
-                        ],
-                        [
-                            'text' => 'Materiales',
-                            'icon_color' => 'green',  // Pruebas clínicas
-                            'route' => 'construccion.index',
-                            'can' => ['ver-gastos'],
-                            'icon' => 'fas fa-box-open',
-                            'classes' => 'bg-light text-dark',
-                        ],
-                        [
-                            'text' => 'Ensamblados',
-                            'icon_color' => 'orange',  // CIE10
-                            'route' => 'construccion.index',
-                            'can' => ['ver-gastos'],
-                            'icon' => 'fas fa-cubes',
-                            'classes' => 'bg-light text-dark',
-                        ],
-                        [
-                            'text' => 'Cambio de Precios',
-                            'icon_color' => 'gray',  // Servicios ofrecidos
-                            'route' => 'construccion.index',
-                            'can' => ['ver-gastos'],
-                            'icon' => 'fas fa-dollar-sign',
-                            'classes' => 'bg-light text-dark',
-                        ],
-                        [
-                            'text' => 'Sobreprecios',
-                            'icon_color' => 'cyan',  // Configuración de géneros
-                            'route' => 'construccion.index',
-                            'can' => ['ver-gastos'],
-                            'icon' => 'fas fa-receipt',
-                            'classes' => 'bg-light text-dark',
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'Otros',
-                    'icon' => 'fas fa-th-list',
-                    'classes' => 'bg-cyan text-white',
-                    'submenu' => [
-                        [
-                            'text' => 'Gastos',
-                            'icon_color' => 'cyan',  // Administración de examenes
-                            'route' => 'gastos.index',
-                            'can' => ['ver-gastos'],
-                            'icon' => 'fas fa-credit-card',
-                            'classes' => 'bg-light text-dark',
-                        ],
-                        [
-                            'text' => 'Tipos de Documento',
-                            'icon_color' => 'yellow',  // Administración de enfasis
-                            'route' => 'construccion.index',
-                            'can' => ['ver-gastos'],
-                            'icon' => 'fas fa-file-alt',
-                            'classes' => 'bg-light text-dark',
-                        ],
-                    ],
-                ],
-
-            ],
-
-        ],
-        [
-            'text' => 'Seguridad',
-            'icon' => 'fas fa-tools',
-            'classes' => 'bg-secondary text-white',
-            'submenu' => [
-                [
-                    'text' => 'Configuración',
-                    'icon_color' => 'cyan',  // Ajustes generales
-                    'route' => 'configuracion.index',
-                    'can' => ['ver-configuracion'],
-                    'icon' => 'fas fa-cog',
-                    'classes' => 'bg-light text-dark',
-                ],
-                [
-                    'text' => 'Usuarios',
-                    'icon_color' => 'yellow',  // Administración de usuarios
-                    'route' => 'users.index',
-                    'can' => ['ver-usuarios'],
-                    'icon' => 'fas fa-users',
-                    'classes' => 'bg-light text-dark',
-                ],
-                [
-                    'text' => 'Roles',
-                    'icon_color' => 'red',  // Configuración de roles
-                    'route' => 'roles.index',
-                    'can' => ['ver-roles'],
-                    'icon' => 'fas fa-user-cog',
-                    'classes' => 'bg-light text-dark',
-                ],
-                [
-                    'text' => 'Permisos',
-                    'icon_color' => 'green',  // Permisos y accesos
-                    'route' => 'permissions.index',
-                    'can' => ['ver-permisos'],
-                    'icon' => 'fas fa-user-shield',
-                    'classes' => 'bg-light text-dark',
-                ],
-            ],
-        ],
-        [
-            'text' => 'Cerrar Sesión',
-            'icon_color' => 'white',
-            'url' => '/logout',  // Cambia '/logout' por la URL real de tu ruta de logout si es diferente
-            'icon' => 'fas fa-power-off',
-            'classes' => 'bg-danger text-white',
-        ]
+    // Reemplaza el arreglo 'menu' por este (mantiene los mismos items y permisos)
+'menu' => [
+    // Navbar
+    [
+        'type'         => 'navbar-search',
+        'text'         => 'Buscar',
+        'topnav_right' => true,
     ],
+    [
+        'type'         => 'fullscreen-widget',
+        'topnav_right' => true,
+    ],
+
+    // Sidebar search
+    [
+        'type' => 'sidebar-menu-search',
+        'text' => 'Buscar',
+    ],
+
+    // --- Sección: Operaciones (antes "Movimientos") ---
+    [
+        'header'  => 'MOVIMIENTOS',
+        'classes' => 'text-uppercase text-light small fw-semibold',
+
+    ],
+
+    [
+        'text'  => 'Dashboard',
+        'url'   => 'dashboard',
+        'icon'  => 'fas fa-chart-line',
+        'classes' => 'text-sm',
+    ],
+
+    [
+        'text'  => 'CheckIn',
+        'route' => 'checkins.index',
+        'can'   => ['ver-checkins'],
+        'icon'  => 'fas fa-sign-in-alt',
+        'icon_color' => 'cyan',
+        'classes' => 'text-sm',
+    ],
+
+    [
+        'text'  => 'CheckOut',
+        'route' => 'checkouts.index',
+        'can'   => ['ver-checkouts'],
+        'icon'  => 'fas fa-sign-out-alt',
+        'icon_color' => 'yellow',
+        'classes' => 'text-sm',
+    ],
+
+    // --- Sección: Reservas y Habitaciones ---
+    [
+        'header'  => 'RESERVAS Y HABITACIONES',
+        'classes' => 'text-uppercase text-light small fw-semibold'
+    ],
+
+    [
+        'text' => 'Pisos',
+        'route' => 'pisos.index',
+        'can' => ['ver-pisos'],
+        'icon' => 'fas fa-building',
+        'icon_color' => 'cyan',
+        'classes' => 'text-sm',
+    ],
+
+    [
+        'text'  => 'Habitaciones',
+        'route' => 'habitaciones.index',
+        'can'   => ['ver-habitaciones'],
+        'icon'  => 'fas fa-bed',
+        'icon_color' => 'cyan',
+        'classes' => 'text-sm',
+    ],
+
+    [
+        'text'  => 'Tipo de Habitaciones',
+        'route' => 'tipo_habitaciones.index',
+        'can'   => ['ver-tipo-habitaciones'],
+        'icon'  => 'fas fa-tags',
+        'icon_color' => 'orange',
+        'classes' => 'text-sm',
+    ],
+
+    [
+        'text'  => 'Reservas',
+        'route' => 'reservas.index',
+        'can'   => ['ver-reservas'],
+        'icon'  => 'fas fa-calendar-alt',
+        'icon_color' => 'yellow',
+        'classes' => 'text-sm',
+    ],
+
+    // --- Sección: Informes (mantengo estructura original) ---
+    [
+        'text'    => 'Informes',
+        'icon'    => 'fas fa-chart-line',
+        'classes' => 'text-uppercase text-light small fw-semibold',
+        'submenu' => [
+            [
+                'text'       => 'Facturas',
+                'route'      => 'facturas.index',
+                'icon'       => 'fas fa-file-invoice',
+                'icon_color' => 'orange',
+                'can'        => ['ver-facturas'],
+                'classes'    => 'text-sm',
+            ],
+        ],
+    ],
+
+    // --- Sección: Parámetros (renombrada a Configuración avanzada) ---
+    [
+        'header'  => 'CONFIGURACIÓN',
+        'classes' => 'text-uppercase text-light small fw-semibold',
+
+    ],
+
+    [
+        'text' => 'Parámetros',
+        'icon' => 'fas fa-cogs',
+        'classes' => 'text-sm',
+        'submenu' => [
+            [
+                'text' => 'Terceros',
+                'icon' => 'fas fa-users',
+                'classes' => 'text-sm',
+                'submenu' => [
+                    [
+                        'text'       => 'Proveedores',
+                        'route'      => 'proveedores.index',
+                        'can'        => ['ver-proveedores'],
+                        'icon'       => 'fas fa-handshake',
+                        'icon_color' => 'cyan',
+                        'classes'    => 'text-sm',
+                    ],
+                    [
+                        'text'       => 'Clientes',
+                        'route'      => 'clientes.index',
+                        'can'        => ['ver-clientes'],
+                        'icon'       => 'fas fa-user-tag',
+                        'icon_color' => 'yellow',
+                        'classes'    => 'text-sm',
+                    ],
+                    [
+                        'text'       => 'Vendedores',
+                        'route'      => 'vendedores.index',
+                        'can'        => ['ver-vendedores'],
+                        'icon'       => 'fas fa-user-tie',
+                        'icon_color' => 'red',
+                        'classes'    => 'text-sm',
+                    ],
+                    [
+                        'text'       => 'Empleados',
+                        'route'      => 'empleados.index',
+                        'can'        => ['ver-empleados'],
+                        'icon'       => 'fas fa-users-cog',
+                        'icon_color' => 'green',
+                        'classes'    => 'text-sm',
+                    ],
+                ],
+            ],
+
+            [
+                'text' => 'Mini Bar',
+                'icon' => 'fas fa-boxes',
+                'classes' => 'text-sm',
+                'submenu' => [
+                    [
+                        'text'       => 'Inventario',
+                        'route'      => 'minibar.index',
+                        'can'        => ['ver-minibar-inventario'],
+                        'icon'       => 'fas fa-archive',
+                        'icon_color' => 'red',
+                        'classes'    => 'text-sm',
+                    ],
+                    [
+                        'text'       => 'Productos',
+                        'route'      => 'productos.index',
+                        'can'        => ['ver-productos'],
+                        'icon'       => 'fas fa-boxes',
+                        'icon_color' => 'blue',
+                        'classes'    => 'text-sm',
+                    ],
+                    [
+                        'text'       => 'ProductosComprados',
+                        'route'      => 'productoscomprados.index',
+                        'can'        => ['ver-productos-comprados'],
+                        'icon'       => 'fas fa-shopping-bag',
+                        'icon_color' => 'yellow',
+                        'classes'    => 'text-sm',
+                    ],
+                    [
+                        'text'       => 'ProductosVendidos',
+                        'route'      => 'productosvendidos.index',
+                        'can'        => ['ver-productos-vendidos'],
+                        'icon'       => 'fas fa-shopping-cart',
+                        'icon_color' => 'cyan',
+                        'classes'    => 'text-sm',
+                    ],
+                ],
+            ],
+        ],
+    ],
+
+    // --- Sección Seguridad (mantengo items) ---
+    [
+        'text' => 'Seguridad',
+        'icon' => 'fas fa-tools',
+        'classes' => 'text-uppercase text-light small fw-semibold',
+        'submenu' => [
+            [
+                'text'       => 'Configuración',
+                'route'      => 'configuracion.index',
+                'can'        => ['ver-configuracion'],
+                'icon'       => 'fas fa-cog',
+                'icon_color' => 'cyan',
+                'classes'    => 'text-sm',
+            ],
+            [
+                'text'       => 'Usuarios',
+                'route'      => 'users.index',
+                'can'        => ['ver-usuarios'],
+                'icon'       => 'fas fa-users',
+                'icon_color' => 'yellow',
+                'classes'    => 'text-sm',
+            ],
+            [
+                'text'       => 'Roles',
+                'route'      => 'roles.index',
+                'can'        => ['ver-roles'],
+                'icon'       => 'fas fa-user-cog',
+                'icon_color' => 'red',
+                'classes'    => 'text-sm',
+            ],
+            [
+                'text'       => 'Permisos',
+                'route'      => 'permissions.index',
+                'can'        => ['ver-permisos'],
+                'icon'       => 'fas fa-user-shield',
+                'icon_color' => 'green',
+                'classes'    => 'text-sm',
+            ],
+        ],
+    ],
+
+    // Cerrar sesión (mantengo url)
+    [
+        'text' => 'Cerrar Sesión',
+        'url'  => '/logout',
+        'icon' => 'fas fa-power-off',
+        'icon_color' => 'white',
+        'classes' => 'text-sm text-white bg-danger',
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------

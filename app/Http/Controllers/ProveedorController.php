@@ -86,14 +86,15 @@ class ProveedorController extends Controller
     }
 
     private function validateRequest(Request $request)
-    {
-        $request->validate([
-            'tipo_documento' => 'nullable|string|max:5',
-            'numero' => 'required|string|max:10',
-            'primer_nombre' => 'nullable|string|max:20',
-            'telefono' => 'nullable|string|max:30',
-            'email' => 'nullable|email|max:100',
-            'estado' => 'nullable|string|max:10',
-        ]);
-    }
+{
+    $request->validate([
+        'nit' => 'required|string|max:20',
+        'nombre' => 'required|string|max:255',
+        'direccion' => 'nullable|string|max:255',
+        'telefono' => 'nullable|string|max:20',
+        'email' => 'nullable|email|max:255',
+        'estado' => 'required|string|in:Activo,Inactivo',
+    ]);
+}
+
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;        
-use App\Models\MinibarInventario;
+use App\Models\MinibarHabitacion;
 
 class ProductoController extends Controller
 {
@@ -38,7 +38,7 @@ class ProductoController extends Controller
 
     // Crear automáticamente el inventario para este producto
     if($producto->estado == 'Activo'){
-    MinibarInventario::create([
+    MinibarHabitacion::create([
     'producto_id' => $producto->id,
     'cantidad_inicial' => $producto->stock,  //  aquí va el stock inicial
     'cantidad_actual' => 0,  //  el admin lo ajusta manualmente después
@@ -90,9 +90,9 @@ class ProductoController extends Controller
     // Si el producto ahora está activo y antes estaba inactivo, crear o mantener inventario
     if ($producto->estado === 'Activo' && $estadoAnterior !== 'Activo') {
         // Verificar si ya existe inventario
-        $inventario = MinibarInventario::where('producto_id', $producto->id)->first();
+        $inventario = MinibarHabitacion::where('producto_id', $producto->id)->first();
         if (!$inventario) {
-            MinibarInventario::create([
+            MinibarHabitacion::create([
                 'producto_id' => $producto->id,
                 'cantidad_inicial' => $producto->stock,
                 'cantidad_actual' => 0,
@@ -104,7 +104,7 @@ class ProductoController extends Controller
     if ($producto->estado === 'Inactive') {
         // Por ejemplo, no mostrar en listados de venta (se hace filtrando en los controladores de ventas)
         // O, si quieres, actualizar inventario actual a 0:
-        $inventario = MinibarInventario::where('producto_id', $producto->id)->first();
+        $inventario = MinibarHabitacion::where('producto_id', $producto->id)->first();
         if ($inventario) {
             $inventario->cantidad_actual = 0;
             $inventario->save();

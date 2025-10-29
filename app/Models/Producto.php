@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\ProductoVendido;
-use App\Models\MinibarInventario;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -23,14 +22,6 @@ class Producto extends Model
         'fecha_venta'
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($producto) {
-            $producto->minibarInventarios()->delete();
-        });
-    }
 
 
     public function ventas()
@@ -38,8 +29,15 @@ class Producto extends Model
         return $this->hasMany(ProductoVendido::class);
     }
 
-    public function minibarInventarios()
+    public function habitaciones()
     {
-        return $this->hasMany(MinibarInventario::class, 'producto_id');
+        return $this->belongsToMany(Habitacion::class, 'minibar_habitacion')
+                    ->withPivot('cantidad_inicial', 'cantidad_actual')
+                    ->withTimestamps();
     }
+
+    public function detalleFacturas()
+{
+    return $this->hasMany(DetalleFactura::class);
+}
 }

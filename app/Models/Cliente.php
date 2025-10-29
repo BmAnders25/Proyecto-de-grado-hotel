@@ -31,4 +31,9 @@ class Cliente extends Model
         return $this->hasMany(Reserva::class);
     }
 
+    public function facturas()
+    {
+    return $this->hasMany(Factura::class);
+    }
+
 }

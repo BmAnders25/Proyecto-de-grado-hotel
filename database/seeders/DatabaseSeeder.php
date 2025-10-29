@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoHabitacionesSeeder::class);
         $this->call(HabitacionesSeeder::class);
         $this->call(PisosSeeder::class);
-        $this->call(MinibarInventarioSeeder::class);
+        $this->call(MinibarHabitacionSeeder::class);
         $this->call(ReservasSeeder::class);
         $this->call(CheckInsSeeder::class);
         $this->call(CheckOutsSeeder::class);

@@ -81,35 +81,9 @@
 </x-adminlte-card>
 @stop
 
-@section('css')
-<style>
-.card {
-    background-color: #ffffff;
-    color: #2c3e50;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.btn-success {
-    background-color: #27ae60;
-    border: none;
-}
-
-.btn-success:hover {
-    background-color: #1e8449;
-}
-
-footer {
-    background-color: #2ecc71a2;
-    color: white;
-    padding: 20px 0;
-    border-top: 1px solid #ccc;
-}
-</style>
-@stop
-
 @section('footer')
-    <footer>
-        <p><img src="{{ asset('vendor/adminlte/dist/img/logo.png') }}" width="4%" style="border-radius: 15px" alt="Logo S.O.AH"> © {{ date('Y') }} S.O.A.H.  Sistema De Organización y Administración Hotelera . Todos los derechos reservados.</p>
-    </footer>
+<footer>
+    <p><img src="{{ asset('vendor/adminlte/dist/img/logo.png') }}" width="4%" style="border-radius: 15px" alt="Logo S.O.A.H"> 
+    © {{ date('Y') }} S.O.A.H.  Sistema De Organización y Administración Hotelera. Todos los derechos reservados.</p>
+</footer>
 @stop

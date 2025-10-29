@@ -9,7 +9,7 @@
 @section('content')
 <div class="row">
 
-    <!-- 🏨 Total Habitaciones -->
+    <!--  Total Habitaciones -->
     <div class="col-lg-3 col-md-6 col-sm-12">
         <div class="info-box shadow-sm" style="border-radius:15px;">
             <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-hotel"></i></span>
@@ -159,7 +159,6 @@ new Chart(ocupacionCtx, {
     }
 });
 
-// === 💼 Ingresos Mensuales (Área Mixta con doble degradado) ===
 const ingresosObjRaw = {!! json_encode($ingresosMensuales instanceof \Illuminate\Support\Collection ? $ingresosMensuales->toArray() : (array)$ingresosMensuales) !!};
 const mesesMap = {1:'Enero',2:'Febrero',3:'Marzo',4:'Abril',5:'Mayo',6:'Junio',7:'Julio',8:'Agosto',9:'Septiembre',10:'Octubre',11:'Noviembre',12:'Diciembre'};
 const ingresosLabels = Object.keys(ingresosObjRaw).map(m => mesesMap[m] ?? m);
@@ -167,63 +166,39 @@ const ingresosData = Object.values(ingresosObjRaw);
 
 const ctxIngresos = document.getElementById('ingresosChart').getContext('2d');
 
-// 🎨 Degradado azul
-const gradientBlue = ctxIngresos.createLinearGradient(0, 0, 0, 400);
-gradientBlue.addColorStop(0, 'rgba(54, 162, 235, 0.45)');
-gradientBlue.addColorStop(1, 'rgba(54, 162, 235, 0)');
-
-// 🎨 Degradado verde
-const gradientGreen = ctxIngresos.createLinearGradient(0, 0, 0, 400);
-gradientGreen.addColorStop(0, 'rgba(75, 192, 192, 0.45)');
-gradientGreen.addColorStop(1, 'rgba(75, 192, 192, 0)');
-
 new Chart(ctxIngresos, {
-    type: 'line',
+    type: 'bar',
     data: {
         labels: ingresosLabels,
-        datasets: [
-            {
-                label: 'Ingresos Reales (COP)',
-                data: ingresosData,
-                borderColor: 'rgba(54, 162, 235, 1)',
-                backgroundColor: gradientBlue,
-                fill: true,
-                tension: 0.4,
-                borderWidth: 3,
-                pointRadius: 5,
-                pointBackgroundColor: '#fff',
-                pointBorderColor: 'rgba(54,162,235,1)',
-                pointHoverRadius: 8
-            },
-            {
-                label: 'Proyección',
-                data: ingresosData.map(v => v * (1 + (Math.random() * 0.05 - 0.02))), // variación aleatoria +/-5%
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: gradientGreen,
-                fill: true,
-                tension: 0.4,
-                borderDash: [6, 4],
-                borderWidth: 2,
-                pointRadius: 0
-            }
-        ]
+        datasets: [{
+            label: 'Ingresos (COP)',
+            data: ingresosData,
+            backgroundColor: ingresosData.map(() => {
+                const gradient = ctxIngresos.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0, 'rgba(54, 162, 235, 0.9)');
+                gradient.addColorStop(1, 'rgba(54, 162, 235, 0.3)');
+                return gradient;
+            }),
+            borderRadius: 8,
+            borderSkipped: false,
+            borderColor: 'rgba(54,162,235,1)',
+            borderWidth: 1
+        }]
     },
     options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-            legend: {
-                labels: { color: '#333', font: { size: 14, weight: 'bold' } }
-            },
+            legend: { display: false },
             title: {
                 display: true,
-                text: 'Evolución y Proyección de Ingresos Mensuales',
+                text: 'Ingresos Mensuales (COP)',
                 color: '#111',
                 font: { size: 18, weight: 'bold' },
-                padding: { top: 10, bottom: 25 }
+                padding: { top: 10, bottom: 20 }
             },
             tooltip: {
-                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                backgroundColor: 'rgba(0, 0, 0, 0.85)',
                 titleFont: { size: 14, weight: 'bold' },
                 bodyFont: { size: 13 },
                 callbacks: {
@@ -232,15 +207,20 @@ new Chart(ctxIngresos, {
             }
         },
         scales: {
-            x: { grid: { display: false }, ticks: { color: '#333' } },
+            x: { grid: { display: false }, ticks: { color: '#333', font: { size: 13 } } },
             y: {
                 beginAtZero: true,
                 grid: { color: 'rgba(0,0,0,0.05)' },
-                ticks: { color: '#555', callback: v => '$' + new Intl.NumberFormat('es-CO').format(v) }
+                ticks: {
+                    color: '#555',
+                    font: { size: 13 },
+                    callback: v => '$' + new Intl.NumberFormat('es-CO').format(v)
+                }
             }
         },
-        animation: { duration: 1500, easing: 'easeOutQuart' }
+        animation: { duration: 1200, easing: 'easeOutQuart' }
     }
 });
+
 </script>
 @stop
