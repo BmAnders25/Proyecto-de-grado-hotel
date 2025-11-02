@@ -16,8 +16,7 @@
 
     <div class="card-body">
         @php
-            // Agregado el encabezado "Tipo de Habitación"
-            $heads = ['ID', 'Número', 'Tipo de Habitación', 'Información', 'Estado', 'Precio Noche', 'Precio Día', 'Acciones'];
+            $heads = ['ID', 'Número', 'Piso', 'Tipo de Habitación', 'Información', 'Estado', 'Precio Noche', 'Precio Día', 'Acciones'];
             $config['language'] = ['url' => asset('vendor/datatables/es-CO.json')];
         @endphp
 
@@ -29,7 +28,16 @@
                     <td>{{ $habitacion->id }}</td>
                     <td><strong>Nro: {{ $habitacion->numero }}</strong></td>
 
-                    {{-- Mostrar nombre del tipo de habitación --}}
+                    {{-- Mostrar nombre o número del piso --}}
+                    <td>
+                        @if(isset($habitacion->piso))
+                            {{ $habitacion->piso->nombre ?? 'Piso ' . $habitacion->piso_id }}
+                        @else
+                            Piso {{ $habitacion->piso_id ?? '—' }}
+                        @endif
+                    </td>
+
+                    {{-- Tipo de habitación --}}
                     <td>
                         {{ $habitacion->tipo ? $habitacion->tipo->nombre : '—' }}
                     </td>
@@ -88,7 +96,10 @@
 
 @section('footer')
 <footer>
-    <p><img src="{{ asset('vendor/adminlte/dist/img/logo.png') }}" width="4%" style="border-radius: 15px" alt="Logo S.O.AH"> © {{ date('Y') }} S.O.A.H.  Sistema De Organización y Administración Hotelera . Todos los derechos reservados.</p>
+    <p>
+        <img src="{{ asset('vendor/adminlte/dist/img/logo.png') }}" width="4%" style="border-radius: 15px" alt="Logo S.O.AH">
+        © {{ date('Y') }} S.O.A.H. Sistema De Organización y Administración Hotelera. Todos los derechos reservados.
+    </p>
 </footer>
 @stop
 
@@ -107,10 +118,9 @@
 
     {{-- Confirmación al eliminar --}}
     <script>
-        var deleteButtons = document.querySelectorAll('.delete-button');
-        deleteButtons.forEach(function(button) {
+        document.querySelectorAll('.delete-button').forEach(button => {
             button.addEventListener('click', function() {
-                var form = this.closest('form');
+                const form = this.closest('form');
                 Swal.fire({
                     title: "¿Eliminar habitación?",
                     text: "No podrás recuperar la información.",

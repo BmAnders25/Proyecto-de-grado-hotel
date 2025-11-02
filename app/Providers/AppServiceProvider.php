@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Models\Gasto;
+
 use App\Models\Configuracione;
 use App\Observers\BitacoraObserver;
 
@@ -22,7 +22,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gasto::observe(BitacoraObserver::class);
         Configuracione::observe(BitacoraObserver::class);
     }
 }

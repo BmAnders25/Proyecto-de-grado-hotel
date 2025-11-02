@@ -7,6 +7,7 @@ use App\Models\Cliente;
 use App\Models\Habitacion;
 use App\Models\Piso;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ReservaController extends Controller
 {
@@ -21,16 +22,16 @@ class ReservaController extends Controller
     // Muestra todas las reservas
     public function index()
     {
-        $reservas = Reserva::with(['cliente', 'habitacion', 'piso'])->paginate(10);
+        $reservas = Reserva::with(['cliente', 'habitacion', 'piso'])->get();
         return view('reservas.index', compact('reservas'));
     }
 
     // Muestra el formulario para crear una nueva reserva
     public function create()
     {
-        $clientes = Cliente::all();
-        $habitaciones = Habitacion::all();
-        $pisos = Piso::all(); 
+        $clientes = Cliente::where('estado', 'Activo')->get();
+        $habitaciones = Habitacion::where('estado', 'disponible')->get();
+        $pisos = Piso::whereIn('id', [2, 3])->get();
         return view('reservas.create', compact('clientes', 'habitaciones', 'pisos'));
     }
 
@@ -44,9 +45,13 @@ class ReservaController extends Controller
             'fecha_entrada' => 'required|date|after_or_equal:today',
             'fecha_salida' => 'required|date|after:fecha_entrada',
             'numero_personas' => 'required|integer|min:1',
-            'precio_total' => 'required|numeric|min:0',
             'estado' => 'required|in:pendiente,confirmada,cancelada,completada',
         ]);
+
+        // Calcular precio total automáticamente
+        $habitacion = Habitacion::findOrFail($request->habitacion_id);
+        $dias = Carbon::parse($request->fecha_entrada)->diffInDays(Carbon::parse($request->fecha_salida));
+        $precioTotal = $dias * $habitacion->precio_noche;
 
         Reserva::create([
             'cliente_id' => $request->cliente_id,
@@ -55,7 +60,7 @@ class ReservaController extends Controller
             'fecha_entrada' => $request->fecha_entrada,
             'fecha_salida' => $request->fecha_salida,
             'numero_personas' => $request->numero_personas,
-            'precio_total' => $request->precio_total,
+            'precio_total' => $precioTotal,
             'estado' => $request->estado,
         ]);
 
@@ -73,9 +78,9 @@ class ReservaController extends Controller
     public function edit($id)
     {
         $reserva = Reserva::findOrFail($id);
-        $clientes = Cliente::all();
-        $habitaciones = Habitacion::all();
-        $pisos = Piso::all(); // Cargar los pisos disponibles
+        $clientes = Cliente::where('estado', 'Activo')->get();
+        $habitaciones = Habitacion::where('estado', 'disponible')->get();
+        $pisos = Piso::whereIn('id', [2,3])->get();
         return view('reservas.edit', compact('reserva', 'clientes', 'habitaciones', 'pisos'));
     }
 
@@ -89,11 +94,16 @@ class ReservaController extends Controller
             'fecha_entrada' => 'required|date|after_or_equal:today',
             'fecha_salida' => 'required|date|after:fecha_entrada',
             'numero_personas' => 'required|integer|min:1',
-            'precio_total' => 'required|numeric|min:0',
             'estado' => 'required|in:pendiente,confirmada,cancelada,completada',
         ]);
 
         $reserva = Reserva::findOrFail($id);
+
+        // Recalcular precio total si cambian fechas o habitación
+        $habitacion = Habitacion::findOrFail($request->habitacion_id);
+        $dias = Carbon::parse($request->fecha_entrada)->diffInDays(Carbon::parse($request->fecha_salida));
+        $precioTotal = $dias * $habitacion->precio_noche;
+
         $reserva->update([
             'cliente_id' => $request->cliente_id,
             'habitacion_id' => $request->habitacion_id,
@@ -101,7 +111,7 @@ class ReservaController extends Controller
             'fecha_entrada' => $request->fecha_entrada,
             'fecha_salida' => $request->fecha_salida,
             'numero_personas' => $request->numero_personas,
-            'precio_total' => $request->precio_total,
+            'precio_total' => $precioTotal,
             'estado' => $request->estado,
         ]);
 
@@ -115,8 +125,4 @@ class ReservaController extends Controller
         $reserva->delete();
         return redirect()->route('reservas.index')->with('success', 'Reserva eliminada correctamente.');
     }
-
-
-
-
 }

@@ -17,6 +17,23 @@
             </div>
 
             <div class="row">
+    <x-adminlte-select name="piso_id" label="Piso" fgroup-class="col-md-4" required>
+        <x-slot name="prependSlot">
+            <div class="input-group-text bg-gradient-dark">
+                <i class="fas fa-building"></i>
+            </div>
+        </x-slot>
+        <option value="">Seleccione un piso</option>
+        @foreach ($pisos as $piso)
+            <option value="{{ $piso->id }}">{{ $piso->nombre }}</option>
+        @endforeach
+    </x-adminlte-select>
+</div>
+
+
+
+
+            <div class="row">
                 <x-adminlte-textarea name="informacion" label="Información de la Habitación" rows="3" placeholder="Ej: 2 camas, baño privado, vista al jardín" fgroup-class="col-md-6" />
             </div>
 

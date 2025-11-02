@@ -40,7 +40,7 @@ class CheckInController extends Controller
             })
             ->get();
 
-        $empleados = Empleado::select('id', 'nombre')->get();
+        $empleados = Empleado::where('estado', 'Activo')->get();
 
         return view('checkins.create', compact('reservas', 'empleados'));
     }
@@ -108,7 +108,7 @@ class CheckInController extends Controller
             })
             ->get();
 
-        $empleados = Empleado::select('id', 'nombre')->get();
+        $empleados = Empleado::where('estado', 'Activo')->get();
 
         return view('checkins.edit', compact('checkin', 'reservas', 'empleados'));
     }

@@ -27,19 +27,40 @@ class ReservasSeeder extends Seeder
         for ($i = 0; $i < 20; $i++) {
             $cliente = $clientes->random();
             $habitacion = $habitaciones->random();
-            $piso = $pisos->random();
+
+            // Asignar piso según el número de habitación
+            if ($habitacion->numero >= 200 && $habitacion->numero < 300) {
+                $piso = Piso::where('nombre', 'Piso 2')->first();
+            } elseif ($habitacion->numero >= 300 && $habitacion->numero < 400) {
+                $piso = Piso::where('nombre', 'Piso 3')->first();
+            } else {
+                $piso = $habitacion->piso ?? $pisos->random();
+            }
+
+            if (!$piso) {
+                $piso = $pisos->random();
+            }
 
             // Fecha de entrada aleatoria entre los últimos 30 días y los próximos 30
             $fechaEntrada = Carbon::now()->addDays(rand(-30, 30));
 
-            // Fecha de salida entre 1 y 5 días después de la entrada
+            // Fecha de salida entre 1 y 5 días después
             $fechaSalida = (clone $fechaEntrada)->addDays(rand(1, 5));
 
-            // Calcular días y precio total asegurando que sea positivo
+            // Calcular número de días de estancia
             $dias = max($fechaSalida->diffInDays($fechaEntrada), 1);
-            $precioDia = $habitacion->precio_dia ?? 90000;
-            $precioTotal = abs($dias * $precioDia);
 
+            // Determinar si usar precio por día o por noche
+            if ($dias == 1 && $habitacion->precio_dia) {
+                $precioUnitario = $habitacion->precio_dia;
+            } else {
+                $precioUnitario = $habitacion->precio_noche ?? $habitacion->precio_dia ?? 0;
+            }
+
+            // Calcular precio total
+            $precioTotal = $dias * $precioUnitario;
+
+            // Crear la reserva
             Reserva::create([
                 'cliente_id' => $cliente->id,
                 'habitacion_id' => $habitacion->id,

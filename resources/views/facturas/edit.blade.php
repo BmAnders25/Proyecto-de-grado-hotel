@@ -40,11 +40,6 @@
     <div class="row">
         <x-adminlte-input name="total" label="Total" type="number" step="0.01" placeholder="Total de la factura"
             value="{{ $factura->total }}" fgroup-class="col-md-6" />
-        <x-adminlte-select name="estado" label="Estado" fgroup-class="col-md-6">
-            <option value="Pendiente" {{ $factura->estado == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
-            <option value="Pagada" {{ $factura->estado == 'Pagada' ? 'selected' : '' }}>Pagada</option>
-            <option value="Anulada" {{ $factura->estado == 'Anulada' ? 'selected' : '' }}>Anulada</option>
-        </x-adminlte-select>
     </div>
 
     <h4 class="mt-4 mb-2">Detalles de la Factura</h4>

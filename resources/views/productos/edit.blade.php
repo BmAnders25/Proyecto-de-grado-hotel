@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'MIILE')
+@section('title', 'S.O.A.H')
 
 @section('content_header')
     <h1 class="m-0 text-dark">Editar Producto</h1>

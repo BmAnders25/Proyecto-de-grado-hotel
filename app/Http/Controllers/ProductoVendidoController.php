@@ -6,7 +6,7 @@ use App\Models\ProductoVendido;
 use App\Models\Producto;
 use App\Models\Cliente;
 use App\Models\Empleado;
-use App\Models\Habitacion; // Importar el modelo de Habitacion
+use App\Models\Habitacion; 
 use Illuminate\Http\Request;
 
 class ProductoVendidoController extends Controller
@@ -28,9 +28,9 @@ class ProductoVendidoController extends Controller
     public function create()
     {
         $productos = Producto::where('estado', 'Activo')->get(); // Solo productos activos
-        $clientes = Cliente::all();
-        $empleados = Empleado::all();
-        $habitaciones = Habitacion::where('estado', 'Ocupada')->get();
+        $clientes = Cliente::where('estado', 'Activo')->get(); // Solo clientes activos
+        $empleados = Empleado::where('estado', 'Activo')->get();// Solo emplaedos activos
+        $habitaciones = Habitacion::where('estado', 'Ocupada')->get(); // Solo habitaciones ocupadas
 
         return view('productosvendidos.create', compact('productos', 'clientes', 'empleados', 'habitaciones'));
     }

@@ -29,9 +29,9 @@ class FacturaController extends Controller
 
     public function create()
     {
-        $clientes = Cliente::orderBy('nombre')->get();
+        $clientes = Cliente::where('estado', 'Activo')->get();
         $habitaciones = Habitacion::orderBy('numero')->get();
-        $productos = Producto::orderBy('nombre')->get();
+        $productos = Producto::where('estado', 'Activo')->get();
 
         return view('facturas.create', compact('clientes', 'habitaciones', 'productos'));
     }
@@ -86,9 +86,9 @@ class FacturaController extends Controller
     public function edit($id)
     {
         $factura = Factura::with(['detalles'])->findOrFail($id);
-        $clientes = Cliente::orderBy('nombre')->get();
+        $clientes = Cliente::where('estado', 'Activo')->get();
         $habitaciones = Habitacion::orderBy('numero')->get();
-        $productos = Producto::orderBy('nombre')->get();
+        $productos = Producto::where('estado', 'Activo')->get();
 
         return view('facturas.edit', compact('factura', 'clientes', 'habitaciones', 'productos'));
     }
@@ -153,7 +153,7 @@ class FacturaController extends Controller
         'fecha' => 'required|date',
         'total' => 'nullable|numeric|min:0',
         'estado' => 'nullable|string|max:20',
-        'detalles' => 'nullable|array', // ya no es required
+        'detalles' => 'nullable|array', 
         'detalles.*.producto_id' => 'nullable|exists:productos,id',
         'detalles.*.cantidad' => 'nullable|numeric|min:0.01',
         'detalles.*.precio_unitario' => 'nullable|numeric|min:0',

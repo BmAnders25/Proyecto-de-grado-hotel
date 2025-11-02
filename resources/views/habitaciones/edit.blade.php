@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'MIILE')
+@section('title', 'S.O.A.H')
 
 @section('content_header')
     <h1 class="m-0 text-dark">Editar Habitación</h1>
@@ -16,6 +16,22 @@
                 <x-adminlte-input name="numero" label="Número de Habitación" placeholder="Ej: 101"
                     fgroup-class="col-md-4" value="{{ old('numero', $habitacion->numero) }}" />
             </div>
+            <div class="row">
+    <x-adminlte-select name="piso_id" label="Piso" fgroup-class="col-md-4" required>
+        <x-slot name="prependSlot">
+            <div class="input-group-text bg-gradient-dark">
+                <i class="fas fa-building"></i>
+            </div>
+        </x-slot>
+        <option value="">Seleccione un piso</option>
+        @foreach ($pisos as $piso)
+            <option value="{{ $piso->id }}" {{ old('piso_id', $habitacion->piso_id) == $piso->id ? 'selected' : '' }}>
+                {{ $piso->nombre }}
+            </option>
+        @endforeach
+    </x-adminlte-select>
+</div>
+
 
             <div class="row">
                 <x-adminlte-textarea name="informacion" label="Información de la Habitación" rows="3"

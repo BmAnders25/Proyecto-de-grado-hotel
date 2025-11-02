@@ -26,7 +26,7 @@ class ProductoCompradoController extends Controller
     public function create()
     {
         $productos = Producto::where('estado', 'Activo')->get();
-        $empleados = Empleado::all();
+        $empleados = Empleado::where('estado', 'Activo')->get();
 
         return view('productoscomprados.create', compact('productos', 'empleados'));
     }
@@ -69,7 +69,7 @@ class ProductoCompradoController extends Controller
     {
         $compra = ProductoComprado::findOrFail($id);
         $productos = Producto::where('estado', 'Activo')->get();
-        $empleados = Empleado::all();
+        $empleados = Empleado::where('estado', 'Activo')->get();
 
         return view('productoscomprados.edit', compact('compra', 'productos', 'empleados'));
     }

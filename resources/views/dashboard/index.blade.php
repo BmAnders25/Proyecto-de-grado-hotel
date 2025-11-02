@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <!-- 🚪 Habitaciones Ocupadas -->
+    <!-- Habitaciones Ocupadas -->
     <div class="col-lg-3 col-md-6 col-sm-12">
         <div class="info-box shadow-sm" style="border-radius:15px;">
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-door-closed"></i></span>
@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <!-- 💵 Ingresos del Mes -->
+    <!--  Ingresos del Mes -->
     <div class="col-lg-3 col-md-6 col-sm-12">
         <div class="info-box shadow-sm" style="border-radius:15px;">
             <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-dollar-sign"></i></span>
@@ -59,7 +59,7 @@
 
 </div>
 
-<!-- 📈 Sección de Gráficas -->
+<!--  Sección de Gráficas -->
 <div class="row">
     <!-- Ocupación -->
     <div class="col-lg-6">
@@ -86,7 +86,7 @@
     </div>
 </div>
 
-<!-- 🧾 Últimas Reservas -->
+<!--  Últimas Reservas -->
 <div class="card shadow-sm" style="border-radius:20px;">
     <div class="card-header bg-info text-white">
         <h3 class="card-title mb-0">Últimas Reservas</h3>

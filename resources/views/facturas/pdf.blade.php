@@ -19,7 +19,6 @@
     <div class="flex">
       <div>
         <h2>Empresa / Hotel</h2>
-        <div class="small">Dirección · Teléfono · NIT</div>
       </div>
       <div class="text-right">
         <h3>Factura</h3>

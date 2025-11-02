@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Gasto;
+use App\Models\Empleado;
 
 class ConstruccionController extends Controller
 {
@@ -13,8 +13,8 @@ class ConstruccionController extends Controller
      */
     public function index()
     {
-        $gastos = Gasto::all();
-        return view('construccion.index', compact('gastos'));
+        $empleados = Empleado::all();
+        return view('construccion.index', compact('empleados'));
     }
 
 }

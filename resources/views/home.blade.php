@@ -22,7 +22,7 @@
             <div class="icon">
                 <i class="fas fa-sign-in-alt"></i>
             </div>
-            <a href="{{ route('gastos.index') }}" class="small-box-footer">
+            <a href="{{ route('empleados.index') }}" class="small-box-footer">
                 Más detalle <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -37,7 +37,7 @@
             <div class="icon">
                 <i class="fas fa-sign-out-alt"></i>
             </div>
-            <a href="{{ route('gastos.index') }}" class="small-box-footer">
+            <a href="{{ route('empleados.index') }}" class="small-box-footer">
                 Más detalle <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>

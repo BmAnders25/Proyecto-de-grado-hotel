@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('habitaciones', function (Blueprint $table) {
             $table->id();
@@ -19,8 +19,20 @@ return new class extends Migration
             $table->decimal('precio_noche', 10, 2)->default(0);
             $table->decimal('precio_dia', 10, 2)->nullable();
 
-              //  Relación con tipo_habitaciones
-            $table->foreignId('tipo_habitacion_id')->nullable()->constrained('tipo_habitaciones')->onDelete('set null');
+            // Clave foránea hacia tipo_habitaciones
+            $table->unsignedBigInteger('tipo_habitacion_id')->nullable();
+            $table->foreign('tipo_habitacion_id')
+                ->references('id')
+                ->on('tipo_habitaciones')
+                ->onDelete('set null');
+
+            // Clave foránea hacia pisos
+            $table->unsignedBigInteger('piso_id')->nullable();
+            $table->foreign('piso_id')
+                ->references('id')
+                ->on('pisos')
+                ->onDelete('set null');
+
             $table->timestamps();
         });
     }

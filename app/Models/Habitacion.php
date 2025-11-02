@@ -14,6 +14,7 @@ class Habitacion extends Model
     protected $fillable = [
         'numero',
         'tipo_habitacion_id',
+        'piso_id',
         'estado',
         'informacion',
         'precio_noche',
@@ -70,5 +71,7 @@ class Habitacion extends Model
                     ->withPivot('cantidad_inicial', 'cantidad_actual')
                     ->withTimestamps();
     }
+
+
 
 }

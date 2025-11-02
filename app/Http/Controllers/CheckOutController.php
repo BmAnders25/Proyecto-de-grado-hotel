@@ -42,7 +42,7 @@ public function create()
         ->get();
 
     // Obtener todos los empleados
-    $empleados = Empleado::select('id', 'nombre')->get();
+    $empleados = Empleado::where('estado', 'Activo')->get();
 
     return view('checkouts.create', compact('reservas', 'empleados'));
 }
@@ -122,7 +122,7 @@ public function create()
         ->get();
 
     // Cargar empleados
-    $empleados = Empleado::select('id', 'nombre')->get();
+    $empleados = Empleado::where('estado', 'Activo')->get();
 
     return view('checkouts.edit', compact('checkout', 'reservas', 'empleados'));
 }

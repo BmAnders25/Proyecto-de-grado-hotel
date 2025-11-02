@@ -6,16 +6,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\PisoController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\GastoController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\CheckInController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\EmpleadoController;
-use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProductoController;
-use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\VendedorController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\HabitacionController;
@@ -102,7 +99,6 @@ Route::get('facturas/{factura}/pdf', [FacturaController::class, 'descargarPDF'])
 });
 
 
-    Route::resource('gastos', GastoController::class);
     
     Route::resource('reservas', ReservaController::class);
 
@@ -114,8 +110,6 @@ Route::get('facturas/{factura}/pdf', [FacturaController::class, 'descargarPDF'])
 
     Route::resource('empleados', EmpleadoController::class );
 
-    Route::resource('pacientes', PacienteController::class );
-
     Route::resource('productos', ProductoController::class );
 
     Route::resource('productoscomprados', ProductoCompradoController::class);
@@ -124,7 +118,6 @@ Route::get('facturas/{factura}/pdf', [FacturaController::class, 'descargarPDF'])
         
 
 
-    Route::resource('servicios', ServicioController::class );
 
     Route::resource('proveedores', ProveedorController::class );
 

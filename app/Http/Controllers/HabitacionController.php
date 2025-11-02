@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Habitacion;
 use App\Models\TipoHabitacion;
+use App\Models\Piso;
 use Illuminate\Http\Request;
 
 class HabitacionController extends Controller
@@ -18,14 +19,15 @@ class HabitacionController extends Controller
 
     public function index()
     {
-        $habitaciones = Habitacion::with('tipo')->get();
+        $habitaciones = Habitacion::with(['tipo', 'piso'])->get();
         return view('habitaciones.index', compact('habitaciones'));
     }
 
     public function create()
     {
         $tipos = TipoHabitacion::all(); 
-        return view('habitaciones.create', compact('tipos'));
+        $pisos = Piso::whereIn('id', [2,3])->get();
+        return view('habitaciones.create', compact('tipos', 'pisos'));
     }
 
     public function store(Request $request)
@@ -36,6 +38,7 @@ class HabitacionController extends Controller
             'precio_noche' => 'required|numeric|min:0',
             'precio_dia' => 'nullable|numeric|min:0',
             'tipo_habitacion_id' => 'nullable|exists:tipo_habitaciones,id',
+            'piso_id' => 'nullable|exists:pisos,id',
         ]);
 
         Habitacion::create([
@@ -45,6 +48,7 @@ class HabitacionController extends Controller
             'precio_noche' => $request->precio_noche,
             'precio_dia' => $request->precio_dia,
             'tipo_habitacion_id' => $request->tipo_habitacion_id,
+            'piso_id' => $request->piso_id,
         ]);
 
         return redirect()->route('habitaciones.index')->with('success', 'Habitación creada con éxito.');
@@ -52,14 +56,15 @@ class HabitacionController extends Controller
 
     public function show($id)
     {
-        $habitacion = Habitacion::with('tipo')->findOrFail($id);
+        $habitacion = Habitacion::with(['tipo', 'piso'])->findOrFail($id);
         return view('habitaciones.show', compact('habitacion'));
     }
 
     public function edit(Habitacion $habitacion)
     {
         $tipos = TipoHabitacion::all();
-        return view('habitaciones.edit', compact('habitacion', 'tipos'));
+        $pisos = Piso::whereIn('id', [2,3])->get();
+        return view('habitaciones.edit', compact('habitacion', 'tipos', 'pisos'));
     }
 
     public function update(Request $request, Habitacion $habitacion)
@@ -70,6 +75,7 @@ class HabitacionController extends Controller
             'precio_noche' => 'required|numeric|min:0',
             'precio_dia' => 'nullable|numeric|min:0',
             'tipo_habitacion_id' => 'nullable|exists:tipo_habitaciones,id',
+            'piso_id' => 'nullable|exists:pisos,id',
         ]);
 
         $habitacion->update([
@@ -79,6 +85,7 @@ class HabitacionController extends Controller
             'precio_noche' => $request->precio_noche,
             'precio_dia' => $request->precio_dia,
             'tipo_habitacion_id' => $request->tipo_habitacion_id,
+            'piso_id' => $request->piso_id,
         ]);
 
         return redirect()->route('habitaciones.index')->with('success', 'Habitación actualizada con éxito.');

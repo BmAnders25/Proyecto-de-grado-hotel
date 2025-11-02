@@ -49,6 +49,13 @@
             text="{{ $habitacion->tipo ? $habitacion->tipo->nombre : 'No asignado' }}" 
             icon="fas fa-layer-group" theme="info"/>
     </div>
+    <div class="col-md-6">
+        <x-adminlte-info-box 
+            title="Piso" 
+            text="{{ $habitacion->piso ? $habitacion->piso->nombre : 'No asignado' }}" 
+            icon="fas fa-building" 
+            theme="dark"/>
+    </div>
 
     <div class="col-md-6">
         <x-adminlte-info-box title="Información de la Habitación" text="{{ $habitacion->informacion }}" icon="fas fa-info-circle" theme="info"/>
@@ -65,6 +72,13 @@
             text="{{ $habitacion->precio_dia !== null ? '$' . number_format($habitacion->precio_dia, 0, ',', '.') : '—' }}" 
             icon="fas fa-sun" theme="warning"/>
     </div>
+</div>
+
+{{-- Botón de regreso al índice --}}
+<div class="mt-4">
+    <a href="{{ route('habitaciones.index') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Regresar
+    </a>
 </div>
 @stop
 

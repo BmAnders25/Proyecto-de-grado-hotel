@@ -22,7 +22,7 @@ class MinibarHabitacionController extends Controller
 // Formulario para agregar productos a una habitación
     public function create(Habitacion $habitacion)
     {
-        $productos = Producto::all();
+        $productos = Producto::where('estado', 'Activo')->get();
         return view('minibar.create', compact('habitacion', 'productos'));
     }
 

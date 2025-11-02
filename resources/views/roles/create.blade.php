@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'SAAC')
+@section('title', 'S.O.A.H')
 
 @section('content_header')
 <h1 class="m-0 text-dark">Registrar Rol</h1>

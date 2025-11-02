@@ -16,7 +16,7 @@ class ProductosSeeder extends Seeder
                 'precio' => 5000,
                 'unidades' => 100,
                 'stock' => 100,
-                'estado' => 'Activo',
+                'estado' => 'Inactivo',
             ],
             [
                 'producto_id' => 'P002',
